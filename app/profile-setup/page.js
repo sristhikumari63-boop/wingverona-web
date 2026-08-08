@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '../../lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 
 const COLORS = { bg: '#F8F9FA', secondary: '#E8F1F2', accent: '#7A4B71', text: '#3D3A3F', textMuted: '#6B6870', border: '#E2E5E1' };
 
 export default function ProfileSetup() {
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   const router = useRouter();
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
