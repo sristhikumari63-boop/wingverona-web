@@ -1,3 +1,0 @@
-module.exports=[62925,a=>{"use strict";var b=a.i(7997);a.s(["default",0,function({children:a}){return(0,b.jsxs)("html",{lang:"en",children:[(0,b.jsx)("head",{children:(0,b.jsx)("link",{rel:"stylesheet",href:"https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"})}),(0,b.jsx)("body",{style:{backgroundColor:"#F8F9FA",margin:0,padding:0,fontFamily:"sans-serif"},children:a})]})},"metadata",0,{title:"WingVerona | Premium AI Wingman",description:"Elevate your conversation game."}])},19325,function(a){a.n(a.i(62925))}];
-
-//# sourceMappingURL=app_layout_07uf2ib.js.map
