@@ -48,7 +48,7 @@ export default function Signup() {
         <label style={{ fontSize: '13px', fontWeight: 500, color: t.ivoryMuted, display: 'block', marginBottom: '6px' }}>Password</label>
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 6 characters" style={inputStyle} />
 
-        {error && <p style={{ color: '#E08A8A', fontSize: '13px', marginBottom: '12px' }}>{error}</p>}
+        {error && <p style={{ color: '#B4392E', fontSize: '13px', marginBottom: '12px' }}>{error}</p>}
 
         <button onClick={handleSignup} disabled={loading} style={{ width: '100%', background: t.gold, color: t.ink, border: 'none', padding: '14px', borderRadius: '999px', fontSize: '15px', fontWeight: 700, cursor: 'pointer', marginBottom: '18px', fontFamily: t.bodyFont }}>
           {loading ? 'Creating account…' : 'Sign up'}

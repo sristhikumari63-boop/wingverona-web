@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
       </head>
-      <body style={{ backgroundColor: '#241019', margin: 0, padding: 0, fontFamily: "'Jost', sans-serif" }}>
+      <body style={{ backgroundColor: '#FBF3E7', margin: 0, padding: 0, fontFamily: "'Jost', sans-serif" }}>
         {children}
       </body>
     </html>

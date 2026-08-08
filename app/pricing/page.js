@@ -90,7 +90,7 @@ function PricingContent() {
       <div aria-hidden="true" style={{
         position: 'absolute', top: '-8%', left: '50%', transform: 'translateX(-50%)',
         width: '560px', height: '560px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,162,75,0.12) 0%, rgba(201,162,75,0) 70%)', pointerEvents: 'none',
+        background: 'radial-gradient(circle, rgba(156,107,38,0.10) 0%, rgba(156,107,38,0) 70%)', pointerEvents: 'none',
       }} />
       <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}>
         <a href="/" style={{ fontFamily: t.displayFont, fontSize: '16px', color: t.goldSoft, textDecoration: 'none', fontWeight: 600, fontStyle: 'italic' }}>WingVerona</a>
@@ -105,7 +105,7 @@ function PricingContent() {
           <Card planKey="weekly" plan={plans.weekly} />
           <Card planKey="monthly" plan={plans.monthly} highlight />
         </div>
-        {checkoutError && <p style={{ color: '#E08A8A', fontSize: '14px', marginTop: '18px' }}>{checkoutError}</p>}
+        {checkoutError && <p style={{ color: '#B4392E', fontSize: '14px', marginTop: '18px' }}>{checkoutError}</p>}
       </div>
     </div>
   );

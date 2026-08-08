@@ -75,13 +75,13 @@ export default function ProfileSetup() {
         <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="18" style={inputStyle} />
 
         <label style={{ fontSize: '13px', fontWeight: 500, color: t.ivoryMuted, display: 'block', marginBottom: '6px' }}>Country</label>
-        <select value={country} onChange={(e) => setCountry(e.target.value)} style={{ ...inputStyle, colorScheme: 'dark' }}>
+        <select value={country} onChange={(e) => setCountry(e.target.value)} style={inputStyle}>
           <option value="India">India</option>
           <option value="United States">United States</option>
           <option value="Other">Other</option>
         </select>
 
-        {error && <p style={{ color: '#E08A8A', fontSize: '13px', marginBottom: '12px' }}>{error}</p>}
+        {error && <p style={{ color: '#B4392E', fontSize: '13px', marginBottom: '12px' }}>{error}</p>}
 
         <button onClick={handleSubmit} disabled={loading} style={{ width: '100%', background: t.gold, color: t.ink, border: 'none', padding: '14px', borderRadius: '999px', fontSize: '15px', fontWeight: 700, cursor: 'pointer', fontFamily: t.bodyFont }}>
           {loading ? 'Saving…' : 'Start free trial'}
