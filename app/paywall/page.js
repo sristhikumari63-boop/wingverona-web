@@ -1,11 +1,19 @@
 'use client';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PRICING_PLANS } from '../../lib/pricing';
 
 const COLORS = { bg: '#F8F9FA', accent: '#7A4B71', text: '#3D3A3F', textMuted: '#6B6870', border: '#E2E5E1' };
 
 export default function Paywall() {
+  return (
+    <Suspense fallback={null}>
+      <PaywallContent />
+    </Suspense>
+  );
+}
+
+function PaywallContent() {
   const searchParams = useSearchParams();
   const lane = searchParams.get('lane') === 'INDIA' ? 'INDIA' : 'INTERNATIONAL';
   const monthly = PRICING_PLANS[lane].monthly;

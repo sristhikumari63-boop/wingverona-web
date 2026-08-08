@@ -1,11 +1,19 @@
 'use client';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PRICING_PLANS, FREE_TRIAL_LIMITS } from '../../lib/pricing';
 
 const COLORS = { bg: '#F8F9FA', secondary: '#E8F1F2', accent: '#7A4B71', text: '#3D3A3F', textMuted: '#6B6870', border: '#E2E5E1' };
 
 export default function Pricing() {
+  return (
+    <Suspense fallback={null}>
+      <PricingContent />
+    </Suspense>
+  );
+}
+
+function PricingContent() {
   const searchParams = useSearchParams();
   const lane = searchParams.get('lane') === 'INDIA' ? 'INDIA' : 'INTERNATIONAL';
   const plans = PRICING_PLANS[lane];

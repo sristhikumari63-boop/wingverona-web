@@ -2,13 +2,12 @@ import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 import { PRICING_PLANS } from '../../../lib/pricing';
 
-// Requires STRIPE_SECRET_KEY to be set in your Vercel project's Environment Variables.
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
-
 export async function POST(request) {
+  // Requires STRIPE_SECRET_KEY to be set in your Vercel project's Environment Variables.
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json({ error: 'Stripe is not configured on the server yet.' }, { status: 500 });
   }
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
   const { lane, plan } = await request.json();
   const validLane = lane === 'INDIA' ? 'INDIA' : 'INTERNATIONAL';
