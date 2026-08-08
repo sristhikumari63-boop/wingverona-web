@@ -2,8 +2,7 @@
 import React, { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PRICING_PLANS, FREE_TRIAL_LIMITS } from '../../lib/pricing';
-
-const COLORS = { bg: '#F8F9FA', secondary: '#E8F1F2', accent: '#7A4B71', text: '#3D3A3F', textMuted: '#6B6870', border: '#E2E5E1' };
+import { theme as t } from '../../lib/theme';
 
 export default function Pricing() {
   return (
@@ -17,7 +16,6 @@ function PricingContent() {
   const searchParams = useSearchParams();
   const lane = searchParams.get('lane') === 'INDIA' ? 'INDIA' : 'INTERNATIONAL';
   const plans = PRICING_PLANS[lane];
-  const c = COLORS;
 
   const [checkoutError, setCheckoutError] = React.useState('');
   const [checkoutLoading, setCheckoutLoading] = React.useState('');
@@ -42,27 +40,39 @@ function PricingContent() {
   };
 
   const Card = ({ planKey, plan, highlight }) => (
-    <div style={{
-      flex: 1, minWidth: '260px', background: '#FFFFFF', border: `1px solid ${highlight ? c.accent : c.border}`,
-      borderRadius: '18px', padding: '28px', textAlign: 'left',
+    <div className="plan-card" style={{
+      flex: 1, minWidth: '250px', background: highlight
+        ? `linear-gradient(165deg, ${t.surfaceRaised}, ${t.surfaceSolid})`
+        : t.surfaceSolid,
+      border: `1px solid ${highlight ? t.gold : t.line}`,
+      borderRadius: '20px', padding: '30px', textAlign: 'left', position: 'relative',
+      boxShadow: highlight ? t.shadow : t.shadowSoft,
     }}>
-      <h3 style={{ fontSize: '15px', color: c.textMuted, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+      {highlight && (
+        <span style={{ position: 'absolute', top: '-12px', right: '24px', background: t.gold, color: t.ink, fontSize: '11px', fontWeight: 700, letterSpacing: '0.5px', padding: '4px 12px', borderRadius: '999px' }}>
+          Most chosen
+        </span>
+      )}
+      <h3 style={{ fontFamily: t.bodyFont, fontSize: '12px', color: t.ivoryMuted, textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '10px' }}>
         {planKey === 'weekly' ? 'Weekly' : 'Monthly'}
       </h3>
-      <p style={{ fontSize: '32px', fontWeight: 800, color: c.text, marginBottom: '18px' }}>
-        {plan.symbol}{plan.price} <span style={{ fontSize: '15px', color: c.textMuted, fontWeight: 500 }}>{plan.period}</span>
+      <p style={{ fontFamily: t.displayFont, fontSize: '38px', fontWeight: 600, color: t.ivory, marginBottom: '20px' }}>
+        {plan.symbol}{plan.price} <span style={{ fontFamily: t.bodyFont, fontSize: '14px', color: t.ivoryMuted, fontWeight: 400 }}>{plan.period}</span>
       </p>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', color: c.text, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <li>{plan.questions} questions / period</li>
-        <li>{plan.screenshots} screenshot checks / period</li>
-        <li>{plan.liveDateMinutesPerDay > 0 ? `${plan.liveDateMinutesPerDay} live date minutes / day` : 'No live date access'}</li>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', color: t.ivoryMuted, display: 'flex', flexDirection: 'column', gap: '11px' }}>
+        <li>· {plan.questions} questions / period</li>
+        <li>· {plan.screenshots} screenshot checks / period</li>
+        <li>· {plan.liveDateMinutesPerDay > 0 ? `${plan.liveDateMinutesPerDay} live date minutes / day` : 'No live date access'}</li>
       </ul>
       <button
         onClick={() => startCheckout(planKey)}
         disabled={checkoutLoading === planKey}
         style={{
-          display: 'block', width: '100%', marginTop: '22px', textAlign: 'center', background: highlight ? c.accent : c.secondary,
-          color: highlight ? '#FFF' : c.accent, padding: '12px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: '14px',
+          display: 'block', width: '100%', marginTop: '26px', textAlign: 'center',
+          background: highlight ? t.gold : 'transparent',
+          color: highlight ? t.ink : t.goldSoft,
+          border: highlight ? 'none' : `1px solid ${t.line}`,
+          padding: '13px', borderRadius: '999px', cursor: 'pointer', fontWeight: 600, fontSize: '14px', fontFamily: t.bodyFont,
         }}
       >
         {checkoutLoading === planKey ? 'Redirecting…' : `Choose ${planKey === 'weekly' ? 'Weekly' : 'Monthly'}`}
@@ -71,21 +81,31 @@ function PricingContent() {
   );
 
   return (
-    <div style={{ minHeight: '100vh', background: c.bg, fontFamily: 'Inter, sans-serif', padding: '40px 20px' }}>
-      <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-        <a href="/" style={{ fontSize: '15px', color: c.accent, textDecoration: 'none', fontWeight: 700 }}>WingVerona</a>
-        <h1 style={{ fontSize: '30px', fontWeight: 800, color: c.text, margin: '18px 0 8px' }}>Simple pricing</h1>
-        <p style={{ fontSize: '15px', color: c.textMuted, marginBottom: '8px' }}>
+    <div style={{ minHeight: '100vh', background: t.bg, fontFamily: t.bodyFont, padding: '50px 20px', position: 'relative', overflow: 'hidden' }}>
+      <style>{`
+        .plan-card { transition: transform 0.3s cubic-bezier(.2,.8,.3,1), box-shadow 0.3s ease; }
+        .plan-card:hover { transform: perspective(800px) rotateX(2deg) translateY(-6px); }
+        @media (prefers-reduced-motion: reduce) { .plan-card { transition: none; } .plan-card:hover { transform: none; } }
+      `}</style>
+      <div aria-hidden="true" style={{
+        position: 'absolute', top: '-8%', left: '50%', transform: 'translateX(-50%)',
+        width: '560px', height: '560px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(201,162,75,0.12) 0%, rgba(201,162,75,0) 70%)', pointerEvents: 'none',
+      }} />
+      <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}>
+        <a href="/" style={{ fontFamily: t.displayFont, fontSize: '16px', color: t.goldSoft, textDecoration: 'none', fontWeight: 600, fontStyle: 'italic' }}>WingVerona</a>
+        <h1 style={{ fontFamily: t.displayFont, fontSize: '36px', fontWeight: 600, color: t.ivory, margin: '20px 0 10px' }}>Simple, honest pricing</h1>
+        <p style={{ fontSize: '14px', color: t.ivoryMuted, marginBottom: '6px' }}>
           Prices shown for {lane === 'INDIA' ? 'India' : 'International'}.
         </p>
-        <p style={{ fontSize: '13px', color: c.textMuted, marginBottom: '32px' }}>
+        <p style={{ fontSize: '13px', color: t.ivoryMuted, opacity: 0.8, marginBottom: '40px' }}>
           Free trial: {FREE_TRIAL_LIMITS.messagesPerDay} messages/day, {FREE_TRIAL_LIMITS.screenshotsPerDay} screenshot/day.
         </p>
-        <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
           <Card planKey="weekly" plan={plans.weekly} />
           <Card planKey="monthly" plan={plans.monthly} highlight />
         </div>
-        {checkoutError && <p style={{ color: '#D9534F', fontSize: '14px', marginTop: '16px' }}>{checkoutError}</p>}
+        {checkoutError && <p style={{ color: '#E08A8A', fontSize: '14px', marginTop: '18px' }}>{checkoutError}</p>}
       </div>
     </div>
   );

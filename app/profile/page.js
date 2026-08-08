@@ -4,13 +4,11 @@ export const dynamic = 'force-dynamic';
 import React, { useEffect, useState } from 'react';
 import { createClient } from '../../lib/supabaseClient';
 import { useRouter } from 'next/navigation';
-
-const COLORS = { bg: '#F8F9FA', accent: '#7A4B71', text: '#3D3A3F', textMuted: '#6B6870', border: '#E2E5E1' };
+import { theme as t } from '../../lib/theme';
 
 export default function Profile() {
   const supabase = createClient();
   const router = useRouter();
-  const c = COLORS;
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,18 +27,21 @@ export default function Profile() {
   }, []);
 
   if (loading) {
-    return <div style={{ minHeight: '100vh', background: c.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: c.textMuted, fontFamily: 'Inter, sans-serif' }}>Loading…</div>;
+    return <div style={{ minHeight: '100vh', background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: t.ivoryMuted, fontFamily: t.bodyFont }}>Loading…</div>;
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: c.bg, fontFamily: 'Inter, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div style={{ width: '100%', maxWidth: '380px', background: '#FFFFFF', border: `1px solid ${c.border}`, borderRadius: '18px', padding: '36px', textAlign: 'center' }}>
-        <a href="/" style={{ fontSize: '14px', color: c.accent, textDecoration: 'none', fontWeight: 700 }}>← Back to WingVerona</a>
-        <h1 style={{ fontSize: '22px', fontWeight: 800, color: c.text, margin: '18px 0 8px' }}>{profile?.name || 'Your profile'}</h1>
-        <p style={{ fontSize: '14px', color: c.textMuted }}>{profile?.age ? `${profile.age} · ${profile.country}` : 'Profile not set up yet.'}</p>
+    <div style={{ minHeight: '100vh', background: t.bg, fontFamily: t.bodyFont, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div style={{ width: '100%', maxWidth: '380px', background: t.surfaceSolid, border: `1px solid ${t.line}`, borderRadius: '20px', padding: '38px', textAlign: 'center', boxShadow: t.shadow }}>
+        <a href="/" style={{ fontSize: '13px', color: t.goldSoft, textDecoration: 'none', fontWeight: 600 }}>← Back to WingVerona</a>
+        <div style={{ width: '56px', height: '56px', borderRadius: '50%', margin: '18px auto 12px', background: `radial-gradient(circle at 32% 28%, ${t.goldSoft}, ${t.gold} 60%, #9c7830 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: t.displayFont, fontStyle: 'italic', fontWeight: 700, fontSize: '22px', color: t.ink }}>
+          {(profile?.name || 'W')[0].toUpperCase()}
+        </div>
+        <h1 style={{ fontFamily: t.displayFont, fontSize: '22px', fontWeight: 600, color: t.ivory, margin: '0 0 6px' }}>{profile?.name || 'Your profile'}</h1>
+        <p style={{ fontSize: '13px', color: t.ivoryMuted }}>{profile?.age ? `${profile.age} · ${profile.country}` : 'Profile not set up yet.'}</p>
         <button
           onClick={async () => { await supabase.auth.signOut(); router.push('/'); }}
-          style={{ marginTop: '20px', background: 'transparent', border: `1px solid ${c.border}`, color: c.text, padding: '10px 18px', borderRadius: '10px', cursor: 'pointer', fontSize: '14px' }}
+          style={{ marginTop: '22px', background: 'transparent', border: `1px solid ${t.line}`, color: t.ivory, padding: '11px 20px', borderRadius: '999px', cursor: 'pointer', fontSize: '13px', fontFamily: t.bodyFont }}
         >
           Log out
         </button>
